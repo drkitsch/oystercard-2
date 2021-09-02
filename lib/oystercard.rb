@@ -2,6 +2,7 @@ class Oystercard
 
   MAX_CAPACITY = 90
   MIN_CAPACITY = 1
+  MIN_FARE = 1 
 
   attr_reader :balance 
   attr_accessor :in_use
@@ -14,10 +15,6 @@ class Oystercard
   def top_up(money)
     fail "Maximum balance of #{MAX_CAPACITY} exceeded" if @balance + money > MAX_CAPACITY
     @balance += money
-  end 
-
-  def deduct(money)
-    @balance -= money
   end 
 
   def in_journey?
@@ -34,8 +31,17 @@ class Oystercard
   end 
 
   def touch_out
+    deduct(MIN_FARE)
     @in_use = false
   end 
+
+  private 
+
+  def deduct(money)
+    @balance -= money
+  end 
+
+  
 
   
 end  
